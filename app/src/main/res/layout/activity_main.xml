@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.alarmtest.MainActivity">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_set1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置闹钟1"/>
+
+        <Button
+            android:id="@+id/btn_update1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="更新闹钟1"/>
+        <Button
+
+            android:id="@+id/btn_cancel1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消闹钟1"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_set2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置闹钟2"/>
+
+        <Button
+            android:id="@+id/btn_update2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="更新闹钟2"/>
+        <Button
+
+            android:id="@+id/btn_cancel2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消闹钟2"/>
+    </LinearLayout>
+</LinearLayout>
