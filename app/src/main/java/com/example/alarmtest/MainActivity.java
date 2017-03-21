@@ -30,9 +30,10 @@ public class MainActivity extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
                     Toast.makeText(act, "设置提醒1111成功!"+(new Date()).toString(), Toast.LENGTH_SHORT).show();
 //                    AlarmUtils.setAlarmRepeatOnce(act,System.currentTimeMillis()+1000*10,1,"提醒成功1111##"+(new Date()).toString(),2,0);
-                    ArrayList<Integer> week = new ArrayList<Integer>();
-                    week.add(2);
-                    AlarmUtils.setAlarmWeek(act,System.currentTimeMillis()+1000*10,week,1,"提醒成功1111##"+(new Date()).toString(),2,0);
+                    ArrayList<Date> dates = new ArrayList<>();
+                    dates.add(new Date(System.currentTimeMillis()+1000*10));
+                    dates.add(new Date(System.currentTimeMillis()+1000*30));
+                    AlarmUtils.setAlarmDates(act,dates,1,"提醒成功1111##"+(new Date()).toString(),0,0);
                 }
             }
         });
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(act, "更新提醒1111++", Toast.LENGTH_SHORT).show();
-                AlarmUtils.updateAlarmRepeat(act,System.currentTimeMillis()+1000*5,0,1,"提醒已更改1111",2,0);
+                AlarmUtils.updateAlarmRepeat(act,System.currentTimeMillis()+1000*5,0,1,"提醒已更改1111",2,1);
             }
         });
         btn_cancel1.setOnClickListener(new View.OnClickListener() {

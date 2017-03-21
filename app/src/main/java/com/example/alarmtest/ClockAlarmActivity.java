@@ -13,7 +13,6 @@ import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -44,17 +43,17 @@ public class ClockAlarmActivity extends AppCompatActivity {
     //显示提醒
     private void showAlarmDialog(final long remind, final int flag, final Intent intent, final int id, final String msg, final int soundAndvibrate, final int ringtoneId) {
         vibrator = (Vibrator) this.getSystemService(Service.VIBRATOR_SERVICE);
-
+        mediaPlayer = MediaPlayer.create(this, ringtone[ringtoneId]);
+        mediaPlayer.setLooping(true);
         if(soundAndvibrate == 0){
-            vibrator.vibrate(new long[]{1000,100,1000,100}, 0);
+            vibrator.vibrate(new long[]{1000, 1000, 1000, 3000, 1000,1000}, 0);
         }else if(soundAndvibrate == 1){
-            mediaPlayer = MediaPlayer.create(this, ringtone[ringtoneId]);
-            mediaPlayer.setLooping(true);
+            mediaPlayer.start();
+
         }else if(soundAndvibrate == 2){
 
-            vibrator.vibrate(new long[]{1000,100,1000,100}, 0);
-            mediaPlayer = MediaPlayer.create(this, ringtone[ringtoneId]);
-            mediaPlayer.setLooping(true);
+            vibrator.vibrate(new long[]{1000, 1000, 1000, 3000, 1000,1000}, 0);
+            mediaPlayer.start();
         }else{
             Log.d("ClockAlarmActivity", "showAlarmDialog: ");
         }
@@ -63,9 +62,9 @@ public class ClockAlarmActivity extends AppCompatActivity {
                 .setPositiveButton("OK!", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(vibrator.hasVibrator()) {
+                        if(vibrator != null && vibrator.hasVibrator()) {
                             vibrator.cancel();
-                        }if(mediaPlayer.isPlaying()){
+                        }if(mediaPlayer != null && mediaPlayer.isPlaying()){
                             mediaPlayer.stop();
                         }
                         switch (flag){
@@ -81,7 +80,10 @@ public class ClockAlarmActivity extends AppCompatActivity {
                                 break;
                             case AlarmUtils.ALARM_FLAG_IRREGULAR:
                                 ArrayList<Date> dates = (ArrayList<Date>) intent.getSerializableExtra("dates");
-                                setRepeatDates(dates.get(0).getTime(),dates,id,msg,soundAndvibrate,ringtoneId);
+                                dates.remove(0);
+                                if(dates != null && dates.size() != 0){
+                                    setRepeatDates(dates.get(0).getTime(),dates,id,msg,soundAndvibrate,ringtoneId);
+                                }
                                 break;
                         }
 
@@ -179,7 +181,7 @@ public class ClockAlarmActivity extends AppCompatActivity {
             intent.setData(Uri.parse("content://calendar/calendar_alerts/"+id));
 
             dates.remove(0);
-            intent.putExtra("dates",(Serializable)dates);
+            intent.putExtra("dates",dates);
 
             intent.putExtra("flag",AlarmUtils.ALARM_FLAG_IRREGULAR);
             intent.putExtra("sav", soundAndvibrate);
